@@ -42,10 +42,8 @@ export default function Auth(WrappedComponent) {
     render() {
       console.log("auth render");
       return (
-        <div>
-          {this.islogin === true ? (
-            <WrappedComponent {...this.props} />
-          ) : null}
+        <div style={{ height: "100%" }}>
+          {this.islogin === true ? <WrappedComponent {...this.props} /> : null}
         </div>
       );
     }

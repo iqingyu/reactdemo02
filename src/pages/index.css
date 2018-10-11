@@ -1,0 +1,7 @@
+.ant-table td {
+  white-space: nowrap;
+}
+
+.ant-table-thead > tr > th {
+  text-align: center;
+}

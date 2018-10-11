@@ -53,12 +53,12 @@ export default class SidebarLayout extends Component {
                             </Col>
                         </Row>                             
                     </Header>
-                    <Content>
+                    <Content style={{height:'86vh',paddingRight:'2%',overflow:'auto',textAlign:'center'}}>
                        <ContentView />
                     </Content>
-                    <Footer>
+                    {/* <Footer>
                         <FooterView />
-                    </Footer>
+                    </Footer> */}
                 </Layout>
             </Layout>
         );
