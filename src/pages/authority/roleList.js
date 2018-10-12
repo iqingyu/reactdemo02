@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  message,
-  Form,
-  Button,
-  Table,
-  Tag,
-  Input,
-  Row,
-  Col,
-  Modal
-} from "antd";
+import { Button, Table } from "antd";
 import AddRole from "./addRole";
 import EditRole from "./editRole";
 
@@ -84,7 +74,6 @@ class RoleList extends React.Component {
   ];
 
   render() {
-    const { getFieldDecorator } = this.props.form;
     return (
       <div>
         <div style={{ height: 60, padding: 15, textAlign: "left" }}>
@@ -105,4 +94,4 @@ class RoleList extends React.Component {
   }
 }
 
-export default Form.create()(RoleList);
+export default RoleList;

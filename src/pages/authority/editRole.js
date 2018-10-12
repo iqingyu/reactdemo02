@@ -2,29 +2,7 @@ import React from "react";
 import { message, Form, Button, Input, Modal } from "antd";
 import PropTypes from "prop-types";
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 }
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 }
-  }
-};
-
-const tailFormItemLayout = {
-    wrapperCol: {
-      xs: {
-        span: 24,
-        offset: 0,
-      },
-      sm: {
-        span: 16,
-        offset: 8,
-      },
-    },
-  };
+import { formItemLayout, tailFormItemLayout } from '../styles/formStyles' 
 
 class EditRole extends React.Component {
   static propTypes = {
@@ -48,16 +26,17 @@ class EditRole extends React.Component {
 
       var role = { id: data.length + 1, roleName: values["roleName"] };
 
-      message.success("修改角色成功");
+      message.success("保存角色成功");
 
       this.props.editRoleAction(role);
     });
   };
 
+  
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Modal visible={this.props.editVisible} title="修改角色名" footer={null}>
+      <Modal visible={this.props.editVisible} title="编辑角色名" footer={null}>
         <Form horizontal="true" onSubmit={this.handleSubmit}>
           <Form.Item {...formItemLayout} label="原角色名">
             {this.props.editRoleName}
@@ -77,7 +56,7 @@ class EditRole extends React.Component {
               htmlType="submit"
               style={{ marginLeft: 15 }}
             >
-              修改角色
+              保存角色
             </Button>
           </Form.Item>
         </Form>

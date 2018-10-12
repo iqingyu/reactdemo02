@@ -17,7 +17,7 @@ class AddRole extends React.Component {
 
       var role = { id: 100, roleName: values["roleName"] };
 
-      message.success("添加角色成功");
+      message.success("新建角色成功");
 
       this.props.addRoleAction(role);
     });
