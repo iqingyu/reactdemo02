@@ -6,9 +6,9 @@ import { Form, Icon, Input, Button, Checkbox, message } from "antd";
 import { loginAction } from "../../actions/userAction";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import "whatwg-fetch";
 
 import "./login.css";
+
 const FormItem = Form.Item;
 
 class Login extends React.Component {
@@ -40,10 +40,13 @@ class Login extends React.Component {
             return;
           }
 
-          this.props.loginAction(content.username, "usericon", data.ResultData);
+          Store.setData(window.YWGlobal.sessionKeys.USER, data.ResultData);
+
+          this.props.loginAction(data.ResultData);
           this.props.history.push("/");
         })
         .catch(error => {
+          console.log(error);
           message.error("登录失败");
         });
     });
@@ -105,9 +108,17 @@ class Login extends React.Component {
   }
 }
 
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     loginAction: (username, userIcon, userData) => {
+//       dispatch(loginAction(username, userIcon, userData));
+//     }
+//   };
+// };
+
 Login = connect(
   null,
-  { loginAction }
+  { loginAction: loginAction }
 )(Login);
 
 export default Form.create()(Login);

@@ -1,15 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import Store from "../store";
 
 export default function Auth(WrappedComponent) {
   class AuthComponent extends Component {
-    static contextTypes = {
-      store: PropTypes.object,
-      username: PropTypes.string
-    };
-
     constructor(props) {
       super(props);
       this.islogin = true;
@@ -20,27 +15,21 @@ export default function Auth(WrappedComponent) {
     }
 
     checkAuth() {
-      const { store } = this.context;
+      var key = window.YWGlobal.sessionKeys.USER;
+      let user = Store.getData(key);
 
-      var contextState = store.getState();
-
-      if (contextState && contextState.user && contextState.user.username) {
+      if (user && user.userId && user.userId > 0) {
         this.islogin = true;
       } else {
         this.islogin = false;
       }
 
       if (!this.islogin) {
-        //没有登录
-        console.log("请先登录");
-        this.props.history.push("/login");
-      } else {
-        console.log("登录验证通过");
+        this.props.history.push(window.YWGlobal.loginPath);
       }
     }
 
     render() {
-      console.log("auth render");
       return (
         <div style={{ height: "100%" }}>
           {this.islogin === true ? <WrappedComponent {...this.props} /> : null}
@@ -49,9 +38,5 @@ export default function Auth(WrappedComponent) {
     }
   }
 
-  const mapStateToProps = state => ({
-    username: state.user.username
-  });
-
-  return connect(mapStateToProps)(withRouter(AuthComponent));
+  return withRouter(AuthComponent);
 }

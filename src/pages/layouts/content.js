@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route} from "react-router-dom";
 
 import UserList from "../authority/userList";
 import RoleList from "../authority/roleList";

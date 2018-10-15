@@ -7,11 +7,7 @@ const users = (state = [], action) => {
 
   switch (action.type) {
     case ActionTypes.USER_LOGIN: {
-      var r = {
-        username: action.username,
-        userIcon: action.userIcon,
-        userData: action.userData
-      };
+      var r = action.userData;
       console.log(r);
       return r;
     }

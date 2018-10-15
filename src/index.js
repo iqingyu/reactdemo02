@@ -4,6 +4,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 
+// http工具类
+import "whatwg-fetch";
+
+// 引入所有基础配置
+import "./configs";
+
+
+// 引入主页面
 import './pages'
 
 registerServiceWorker();

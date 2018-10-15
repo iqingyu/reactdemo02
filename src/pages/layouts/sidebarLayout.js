@@ -7,7 +7,7 @@ import FooterView from './footer.js';
 import SideMenuView from './sideMenu.js';
 import ContentView from './content.js';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 
 
 

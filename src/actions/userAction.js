@@ -1,10 +1,8 @@
 import * as ActionTypes from "./actionTypes";
 
-export const loginAction = (username, userIcon, userData) => {
+export const loginAction = (userData) => {
   var r = {
     type: ActionTypes.USER_LOGIN,
-    username: username,
-    userIcon: userIcon,
     userData: userData
   };
 

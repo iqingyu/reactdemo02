@@ -10,7 +10,6 @@ import { withRouter } from "react-router-dom";
 class HeaderView extends Component {
   static propTypes = {
     username: PropTypes.string,
-    userIcon: PropTypes.string
   };
 
   handleLogout = e => {
@@ -20,8 +19,17 @@ class HeaderView extends Component {
     this.props.history.push("/login");
   };
 
+  handleUserIno = e => {
+    e.preventDefault();
+  };
+
   menu = (
     <Menu>
+      <Menu.Item>
+        <a href="#" onClick={this.handleUserIno}>
+          个人中心
+        </a>
+      </Menu.Item>
       <Menu.Item>
         <a href="#" onClick={this.handleLogout}>
           退出登录
@@ -56,10 +64,9 @@ class HeaderView extends Component {
 
 const mapStateToProps = state => {
   let v = {
-    username: state.user.username,
-    userIcon: state.user.userIcon
+    username: state.user ? state.user.username : ""
   };
-  console.log("mapStateToProps");
+  console.log("header mapStateToProps");
   console.log(state);
   console.log(v);
   return v;

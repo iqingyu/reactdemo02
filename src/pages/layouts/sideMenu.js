@@ -48,7 +48,7 @@ class SideMenuView extends Component {
 
 const mapStateToProps = state => {
   let v = {
-    menuList: state.user.userData.menuList
+    menuList: state.user ? state.user.menuList || [] : []
   };
   console.log("menu: mapStateToProps");
   console.log(state);

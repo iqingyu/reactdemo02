@@ -197,6 +197,7 @@ class MenuList extends React.Component {
             showLine
             defaultExpandedKeys={this.defaultExpandedKeys}
             onSelect={this.onSelect}
+            
           >
             {this.getNodes(this.state.data)}
           </Tree>

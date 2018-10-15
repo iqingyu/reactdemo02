@@ -1,27 +1,30 @@
-import React from 'react'  
-import Storejs from 'storejs'
+import React from "react";
 
 export default class Store extends React.Component {
+  static set(key, str) {
+    console.log("set");
+    console.log(key);
+    console.log(str);
+    sessionStorage.setItem(key, str);
+  }
 
-    static set(key, str){
-        Storejs(key, str);
-    } 
+  static get(key) {
+    let r = sessionStorage.getItem(key);
+    console.log("get");
+    console.log(key);
+    console.log(r);
+    return r;
+  }
 
-    static get(key){
-        return Storejs(key);
-    } 
- 
-    static setData(key, data){
-        Storejs(key, JSON.stringify(data));
-    } 
+  static setData(key, data) {
+    sessionStorage.setItem(key, JSON.stringify(data || {}));
+  }
 
-    static getData(key){
-        return JSON.parse(Storejs(key)||{});
-    } 
+  static getData(key) {
+    return JSON.parse(sessionStorage.getItem(key) || "{}");
+  }
 
-    static remove(key){
-        Storejs.remove(key);
-    }
-
+  static remove(key) {
+    sessionStorage.removeItem(key);
+  }
 }
- 
