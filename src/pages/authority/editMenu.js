@@ -3,10 +3,13 @@ import { message, Form, Button, Input, Modal } from "antd";
 import PropTypes from "prop-types";
 
 import { formItemLayout, tailFormItemLayout } from "../styles/formStyles";
+import { Object } from "core-js";
 
 class EditMenu extends React.Component {
   static propTypes = {
-    editMenuAction: PropTypes.func
+    editMenuAction: PropTypes.func,
+    edit: PropTypes.object,
+    editVisible: PropTypes.bool
   };
 
   handleSubmit = e => {
@@ -17,36 +20,66 @@ class EditMenu extends React.Component {
         return;
       }
 
-      var role = { id: 100, roleName: values["roleName"] };
+      var menu = Object.assign({}, this.props.edit, values);
 
-      message.success("新建角色成功");
+      var url = "http://localhost:23075/api/user/saveMenu";
+      fetch(url, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(menu)
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.ResultCode != 1) {
+            message.error(data.ResultMsg);
+            return;
+          }
 
-      this.props.editMenuAction(role);
+          message.success("保存菜单成功");
+          this.props.form.resetFields(); // 清空表单
+          this.props.editMenuAction(true);
+        })
+        .catch(error => {
+          console.log(error);
+          message.error("保存菜单失败");
+        });
     });
+  };
+
+  cancel = () => {
+    this.props.form.resetFields(); // 清空表单
+    this.props.editMenuAction(false);
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
     const { edit } = this.props;
     return (
-      <Modal visible={this.props.editVisible} title="编辑菜单" footer={null}>
+      <Modal
+        visible={this.props.editVisible}
+        title="编辑菜单"
+        footer={null}
+        onCancel={this.cancel}
+      >
         <Form horizontal="true" onSubmit={this.handleSubmit}>
           <Form.Item {...formItemLayout} label="菜单名">
             {getFieldDecorator("name", {
-              initialValue: edit ? edit.name : '',
+              initialValue: edit ? edit.name : "",
               rules: [{ required: true, message: "请输入菜单名!" }]
             })(<Input height="45" placeholder="菜单名" />)}
           </Form.Item>
 
           <Form.Item {...formItemLayout} label="菜单路由">
             {getFieldDecorator("path", {
-              initialValue: edit ? edit.path : '',
+              initialValue: edit ? edit.path : "",
               rules: [{ required: true, message: "请输入菜单路由!" }]
             })(<Input height="45" placeholder="菜单路由" />)}
           </Form.Item>
           <Form.Item {...formItemLayout} label="菜单图标">
             {getFieldDecorator("icon", {
-              initialValue: edit ? edit.icon : '',
+              initialValue: edit ? edit.icon : "",
               rules: [{ required: true, message: "请输入菜单图标!" }]
             })(<Input height="45" placeholder="菜单图标" />)}
           </Form.Item>

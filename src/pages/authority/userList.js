@@ -1,22 +1,8 @@
 import React from "react";
-import { Button, Table, Tag } from "antd";
-
-const data = [];
-for (let i = 1; i <= 10; i++) {
-  data.push({
-    id: i,
-    name: "John Brown",
-    staffCode: `${i}-2`,
-    username: "用户名",
-    tel: "17600372177",
-    phone: "454646",
-    roles: ["1", "2"],
-    sex: "男",
-    email: "imengqingyu@qq.com",
-    department: "北京信息中心技术部",
-    post: "软件开发工程师"
-  });
-}
+import { Button, Table, Tag, message } from "antd";
+import "whatwg-fetch";
+import AddUser from "./addUser";
+import AllocationRole from "./allocationRole";
 
 const expandedRowRenderDiv = record => (
   <span>
@@ -37,27 +23,58 @@ class UserList extends React.Component {
     this.state = {
       bordered: true,
       loading: false,
-      pagination: { position: "bottom" },
+      pagination: false,
       expandedRowRender: expandedRowRenderDiv,
       hasData: true,
-      data: data,
-      rowKey: recod => recod.id
+      data: [],
+      rowKey: recod => recod.id,
+      addVisible: false,
+      allocationVisible: false
     };
   }
 
-  handleAdd = () => {};
+  addUserAction = success => {
+    this.setState({ addVisible: false });
+    if (success) {
+      this.getUserList(); // 刷新用户列表
+    }
+  };
+
+  handleAdd = () => {
+    this.setState({ addVisible: true });
+  };
 
   handleResetPassword = record => {
+    var url = "http://localhost:23075/api/user/resetPassword/";
+
     console.log(record);
+
+    fetch(url + record.id, {
+      method: "post"
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ResultCode === 1) {
+          message.success("重置密码成功");
+        } else {
+          message.error("重置密码失败");
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        message.error("重置密码失败");
+      });
+  };
+
+  handleAllocationRole = record => {
+    this.setState({
+      allocationVisible: true,
+      userId: record.id,
+      username: record.username
+    });
   };
 
   columns = [
-    {
-      title: "员工编号",
-      width: 100,
-      dataIndex: "staffCode",
-      fixed: "left"
-    },
     {
       title: "姓名",
       width: 150,
@@ -70,7 +87,12 @@ class UserList extends React.Component {
       dataIndex: "username",
       fixed: "left"
     },
-    { title: "性别", dataIndex: "sex", width: 50 },
+    {
+      title: "员工编号",
+      width: 150,
+      dataIndex: "userCode"
+    },
+    { title: "性别", dataIndex: "sexName", width: 50 },
     { title: "电话", dataIndex: "phone", width: 100 },
     { title: "固话", dataIndex: "tel", width: 150 },
     { title: "邮箱", dataIndex: "email", width: 200 },
@@ -80,19 +102,51 @@ class UserList extends React.Component {
       title: "操作",
       key: "id",
       fixed: "right",
-      width: 210,
+      width: 250,
       render: (text, record) => (
         <span>
           <Button onClick={this.handleResetPassword.bind(this, record)}>
             重置密码
           </Button>
-          <Button onClick={this.handleResetPassword.bind(this, record)}>
-            停用账号
+          <Button onClick={this.handleAllocationRole.bind(this, record)}>
+            设置角色
           </Button>
         </span>
       )
     }
   ];
+
+  getUserList = () => {
+    fetch("http://localhost:23075/api/user/getUserList", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ data: data.ListData });
+      })
+      .catch(error => {
+        console.log(error);
+        message.error("获取用户列表失败");
+      });
+  };
+
+  allocationRoleAction = success => {
+    this.setState({
+      allocationVisible: false,
+      userId: null,
+      username: null
+    });
+    if (success) {
+      this.getUserList();
+    }
+  };
+
+  componentDidMount() {
+    this.getUserList();
+  }
 
   render() {
     return (
@@ -112,7 +166,12 @@ class UserList extends React.Component {
           {...this.state}
           columns={this.columns}
           dataSource={this.state.hasData ? this.state.data : null}
-          scroll={{ x: 1210, y: 600 }}
+          scroll={{ x: 1600, y: 600 }}
+        />
+        <AddUser {...this.state} addUserAction={this.addUserAction} />
+        <AllocationRole
+          {...this.state}
+          allocationRoleAction={this.allocationRoleAction}
         />
       </div>
     );

@@ -1,11 +1,12 @@
 import React from "react";
 import Store from "../../components/store";
 
-import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { Form, Icon, Input, Button, Checkbox, message } from "antd";
 
 import { loginAction } from "../../actions/userAction";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import "whatwg-fetch";
 
 import "./login.css";
 const FormItem = Form.Item;
@@ -21,11 +22,30 @@ class Login extends React.Component {
       if (err) {
         return;
       }
+      var content = {
+        username: values["username"],
+        password: values["password"]
+      };
+      fetch("http://localhost:23075/api/user/login", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(content)
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.ResultCode != 1) {
+            message.error(data.ResultMsg);
+            return;
+          }
 
-      console.log(values);
-      Store.set("user", values['username']);
-      this.props.loginAction(values['username'], "usericon", "userdata");
-      this.props.history.push("/");
+          this.props.loginAction(content.username, "usericon", data.ResultData);
+          this.props.history.push("/");
+        })
+        .catch(error => {
+          message.error("登录失败");
+        });
     });
   };
   render() {

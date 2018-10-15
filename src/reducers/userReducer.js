@@ -9,8 +9,8 @@ const users = (state = [], action) => {
     case ActionTypes.USER_LOGIN: {
       var r = {
         username: action.username,
-        usericon: action.usericon,
-        userdata: action.userdata
+        userIcon: action.userIcon,
+        userData: action.userData
       };
       console.log(r);
       return r;

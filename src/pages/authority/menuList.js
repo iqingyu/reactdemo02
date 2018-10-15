@@ -5,27 +5,15 @@ import EditMenu from "./editMenu";
 
 const TreeNode = Tree.TreeNode;
 
-var data = [];
-for (var i = 0; i < 5; i++) {
-  data.push({
-    id: i,
-    parentId: i,
-    name: "name" + i,
-    path: "path" + i,
-    icon: "plus-circle",
-    order: 1,
-    children: []
-  });
-}
-
 class MenuList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       selectedMenu: null,
-      data: data,
+      data: [],
       defaultExpandedKeys: [],
+      selectedKeys: [],
 
       addParentId: -1,
       addParentName: "",
@@ -39,7 +27,7 @@ class MenuList extends React.Component {
   onSelect = (selectedKeys, info) => {
     if (info && info.selectedNodes && info.selectedNodes.length > 0) {
       this.setState({
-        selectedMenu: JSON.parse(info.selectedNodes[0].props['data-data'])
+        selectedMenu: JSON.parse(info.selectedNodes[0].props["data-data"])
       });
     } else {
       this.setState({ selectedMenu: null });
@@ -51,7 +39,7 @@ class MenuList extends React.Component {
       <TreeNode
         title={
           <span>
-            <Icon type={node.icon} theme="twoTone" /> {node.name} ({node.path})
+            {node.name} ({node.path})
           </span>
         }
         key={node.id}
@@ -87,6 +75,7 @@ class MenuList extends React.Component {
       addVisible: true
     });
   };
+
   handleEdit = () => {
     let parent = this.state.selectedMenu;
 
@@ -97,7 +86,91 @@ class MenuList extends React.Component {
 
     this.setState({ edit: parent, editVisible: true });
   };
-  handleDelete = () => {};
+
+  addMenuAction = success => {
+    this.setState({
+      addParentId: -1,
+      addParentName: "",
+      addVisible: false
+    });
+
+    if (success) {
+      this.getMenus();
+    }
+  };
+
+  editMenuAction = success => {
+    this.setState({ edit: null, editVisible: false });
+    if (success) {
+      this.getMenus();
+    }
+  };
+
+  handleDelete = () => {
+    let menu = this.state.selectedMenu;
+
+    if (!menu) {
+      message.error("请先选中一个需要删除的菜单");
+      return;
+    }
+
+    var url = "http://localhost:23075/api/user/deleteMenu/";
+    fetch(url + menu.id, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: ""
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ResultCode != 1) {
+          message.error(data.ResultMsg);
+          return;
+        }
+        message.success("删除菜单成功");
+        this.getMenus();
+      })
+      .catch(error => {
+        console.log(error);
+        message.error("删除菜单失败");
+      });
+  };
+
+  getMenus = () => {
+    fetch("http://localhost:23075/api/user/getMenuList", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ResultCode != 1) {
+          message.error(data.ResultMsg);
+          return;
+        }
+
+        if (!data.ListData || data.ListData.length <= 0) {
+          message.success("没有获取到菜单列表");
+          return;
+        }
+
+        // 设置菜单列表
+        this.setState({
+          data: data.ListData,
+          selectedKeys: [],
+          selectedMenu: null
+        });
+      })
+      .catch(error => {
+        message.error("获取菜单列表失败");
+      });
+  };
+
+  componentDidMount() {
+    this.getMenus();
+  }
 
   render() {
     return (
@@ -129,8 +202,8 @@ class MenuList extends React.Component {
           </Tree>
         </div>
 
-        <AddMenu {...this.state} />
-        <EditMenu {...this.state} />
+        <AddMenu {...this.state} addMenuAction={this.addMenuAction} />
+        <EditMenu {...this.state} editMenuAction={this.editMenuAction} />
       </div>
     );
   }

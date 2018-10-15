@@ -5,3 +5,7 @@
 .ant-table-thead > tr > th {
   text-align: center;
 }
+
+.ant-form-item {
+  margin-bottom: 8px;
+}

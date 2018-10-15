@@ -15,11 +15,31 @@ class AddRole extends React.Component {
         return;
       }
 
-      var role = { id: 100, roleName: values["roleName"] };
+      var roleName = values["roleName"];
 
-      message.success("新建角色成功");
+      var url = "http://localhost:23075/api/user/addRole/";
+      fetch(url + roleName, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: ""
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.ResultCode != 1) {
+            message.error(data.ResultMsg);
+            return;
+          }
 
-      this.props.addRoleAction(role);
+          message.success("新建角色成功");
+          this.props.form.resetFields(); // 清空表单
+          this.props.addRoleAction(true);
+        })
+        .catch(error => {
+          console.log(error);
+          message.error("新建角色失败");
+        });
     });
   };
 

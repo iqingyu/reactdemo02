@@ -1,37 +1,61 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Icon } from "antd";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-export default class SideMenuView extends Component {
+class SideMenuView extends Component {
+  static propTypes = {
+    menuList: PropTypes.array
+  };
+
+  getMenu = data => {
+    console.log("data : getmenu");
+    console.log(data);
+    var r = data.map(menu => (
+      <Menu.SubMenu
+        key={menu.name}
+        title={
+          <span>
+            <Icon type={menu.icon} />
+            <span>{menu.name}</span>
+          </span>
+        }
+      >
+        {menu &&
+          menu.children.map(child => (
+            <Menu.Item key={child.path}>
+              <Link to={child.path}> {child.name} </Link>
+            </Menu.Item>
+          ))}
+      </Menu.SubMenu>
+    ));
+
+    console.log(r);
+
+    return r;
+  };
+
   render() {
     return (
       <div>
         <div style={{ height: "64px", background: "#20a0ff" }} />
-        <Menu mode="vertical-right">
-          <Menu.SubMenu
-            key="user"
-            title={
-              <span>
-                <Icon type="mail" />
-                <span>用户及权限</span>
-              </span>
-            }
-          >
-            <Menu.Item key="userList">
-              <Link to="/userList"> 用户列表 </Link>
-            </Menu.Item>
-            <Menu.Item key="roleList">
-              <Link to="/roleList"> 角色列表 </Link>
-            </Menu.Item>
-            <Menu.Item key="menuList">
-              <Link to="/menuList"> 菜单列表 </Link>
-            </Menu.Item>
-            <Menu.Item key="allocationMenu">
-              <Link to="/allocationMenu"> 分配菜单 </Link>
-            </Menu.Item>
-          </Menu.SubMenu>
-        </Menu>
+        <Menu mode="vertical-right">{this.getMenu(this.props.menuList)}</Menu>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  let v = {
+    menuList: state.user.userData.menuList
+  };
+  console.log("menu: mapStateToProps");
+  console.log(state);
+  console.log(v);
+  return v;
+};
+
+SideMenuView = connect(mapStateToProps)(SideMenuView);
+
+export default SideMenuView;

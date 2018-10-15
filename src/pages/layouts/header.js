@@ -3,17 +3,32 @@ import PropTypes from "prop-types";
 import { Row, Col, Avatar, Dropdown, Icon, Menu } from "antd";
 import { connect } from "react-redux";
 
-const menu = (
-  <Menu>
-    <Menu.Item>退出登录</Menu.Item>
-  </Menu>
-);
+import { logoutAction } from "../../actions/userAction";
+
+import { withRouter } from "react-router-dom";
 
 class HeaderView extends Component {
   static propTypes = {
     username: PropTypes.string,
-    usericon: PropTypes.string
+    userIcon: PropTypes.string
   };
+
+  handleLogout = e => {
+    e.preventDefault();
+    console.log("退出登录");
+    logoutAction();
+    this.props.history.push("/login");
+  };
+
+  menu = (
+    <Menu>
+      <Menu.Item>
+        <a href="#" onClick={this.handleLogout}>
+          退出登录
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
 
   render() {
     return (
@@ -24,7 +39,7 @@ class HeaderView extends Component {
             style={{ backgroundColor: "#87d068", marginRight: 10 }}
             icon="user"
           />
-          <Dropdown overlay={menu}>
+          <Dropdown overlay={this.menu}>
             <span
               className="ant-dropdown-link"
               href="#"
@@ -40,16 +55,16 @@ class HeaderView extends Component {
 }
 
 const mapStateToProps = state => {
-    let v = {
-        username: state.user.username,
-        usericon: state.user.usericon
-    }
-    console.log("mapStateToProps");
-    console.log(state);
-    console.log(v);
-    return v;
+  let v = {
+    username: state.user.username,
+    userIcon: state.user.userIcon
+  };
+  console.log("mapStateToProps");
+  console.log(state);
+  console.log(v);
+  return v;
 };
 
-HeaderView = connect(mapStateToProps)(HeaderView);
+HeaderView = connect(mapStateToProps)(withRouter(HeaderView));
 
 export default HeaderView;

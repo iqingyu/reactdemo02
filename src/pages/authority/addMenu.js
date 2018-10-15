@@ -3,10 +3,14 @@ import { message, Form, Button, Input, Modal } from "antd";
 import PropTypes from "prop-types";
 
 import { formItemLayout, tailFormItemLayout } from "../styles/formStyles";
+import { Object } from "core-js";
 
 class AddMenu extends React.Component {
   static propTypes = {
-    addMenuAction: PropTypes.func
+    addMenuAction: PropTypes.func,
+    addParentId: PropTypes.number,
+    addParentName: PropTypes.string,
+    addVisible: PropTypes.bool
   };
 
   handleSubmit = e => {
@@ -17,21 +21,51 @@ class AddMenu extends React.Component {
         return;
       }
 
-      var role = { id: 100, roleName: values["roleName"] };
+      var menu = Object.assign({}, { parentId: this.props.addParentId }, values);
 
-      message.success("新建角色成功");
+      var url = "http://localhost:23075/api/user/addMenu";
+      fetch(url, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(menu)
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.ResultCode != 1) {
+            message.error(data.ResultMsg);
+            return;
+          }
 
-      this.props.addMenuAction(role);
+          message.success("保存成功");
+          this.props.form.resetFields(); // 清空表单
+          this.props.addMenuAction(true);
+        })
+        .catch(error => {
+          console.log(error);
+          message.error("保存菜单失败");
+        });
     });
+  };
+
+  cancel = () => {
+    this.props.form.resetFields(); // 清空表单
+    this.props.addMenuAction(false);
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Modal visible={this.props.addVisible} title="新建菜单" footer={null}>
+      <Modal
+        visible={this.props.addVisible}
+        title="新建菜单"
+        footer={null}
+        onCancel={this.cancel}
+      >
         <Form horizontal="true" onSubmit={this.handleSubmit}>
           <Form.Item {...formItemLayout} label="父菜单名">
-            { this.props.addParentName }
+            {this.props.addParentName}
           </Form.Item>
 
           <Form.Item {...formItemLayout} label="菜单名">
@@ -53,7 +87,9 @@ class AddMenu extends React.Component {
           <Form.Item {...formItemLayout} label="菜单序号">
             {getFieldDecorator("order", {
               rules: [{ required: true, message: "请输入菜单序号!" }]
-            })(<Input height="45" placeholder="菜单序号(小号在前，大号在后)" />)}
+            })(
+              <Input height="45" placeholder="菜单序号(小号在前，大号在后)" />
+            )}
           </Form.Item>
 
           <Form.Item {...tailFormItemLayout}>
@@ -74,4 +110,3 @@ class AddMenu extends React.Component {
 }
 
 export default Form.create()(AddMenu);
-

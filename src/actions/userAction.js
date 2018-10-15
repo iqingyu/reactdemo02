@@ -1,11 +1,11 @@
 import * as ActionTypes from "./actionTypes";
 
-export const loginAction = (username, usericon, userdata) => {
+export const loginAction = (username, userIcon, userData) => {
   var r = {
     type: ActionTypes.USER_LOGIN,
     username: username,
-    usericon: usericon,
-    userdata: userdata
+    userIcon: userIcon,
+    userData: userData
   };
 
   console.log("loginAction");
