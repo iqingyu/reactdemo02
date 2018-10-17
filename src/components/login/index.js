@@ -4,7 +4,7 @@ import { loginAction } from "../../actions/userAction";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import "./login.css";
+import "./index.css";
 
 const FormItem = Form.Item;
 

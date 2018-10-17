@@ -10,9 +10,7 @@ class SideMenuView extends Component {
   };
 
   getMenu = data => {
-    console.log("data : getmenu");
-    console.log(data);
-    var r = data.map(menu => (
+    return data.map(menu => (
       <Menu.SubMenu
         key={menu.name}
         title={
@@ -30,10 +28,6 @@ class SideMenuView extends Component {
           ))}
       </Menu.SubMenu>
     ));
-
-    console.log(r);
-
-    return r;
   };
 
   render() {
