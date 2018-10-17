@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import Store from "../store";
 
 export default function Auth(WrappedComponent) {
   class AuthComponent extends Component {
@@ -16,7 +15,7 @@ export default function Auth(WrappedComponent) {
 
     checkAuth() {
       var key = window.YWGlobal.sessionKeys.USER;
-      let user = Store.getData(key);
+      let user = window.YWStore.getData(key);
 
       if (user && user.userId && user.userId > 0) {
         this.islogin = true;
