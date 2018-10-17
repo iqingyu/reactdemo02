@@ -136,7 +136,7 @@ function put(url, data, option) {
   doHttp(url, option, "put", data || "");
 }
 
-function deleteMenthod(url, data, option) {
+function deleteMethod(url, data, option) {
   doHttp(url, option, "delete", data || "");
 }
 
@@ -146,7 +146,7 @@ const YWFetch = {
   get: get,
   post: post,
   put: put,
-  deleteMenthod: deleteMenthod
+  deleteMethod: deleteMethod
 };
 
 export default YWFetch;

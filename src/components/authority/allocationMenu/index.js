@@ -58,14 +58,15 @@ class AllocationMenu extends React.Component {
   };
 
   cancel = () => {
+    this.setState({ checkedKeys: [] });
     this.roleId = null;
     this.props.form.resetFields(); // 清空表单
     this.props.allocationMenuAction(false);
   };
 
-  onCheck = checkedKeys => {
-    console.log("onCheck", checkedKeys);
-    this.setState({ checkedKeys });
+  handleCheck = list => {
+    console.log("handleCheck", list);
+    this.setState({ checkedKeys: [...list.checked, ...list.halfChecked] });
   };
 
   getMenus = () => {
@@ -169,14 +170,13 @@ class AllocationMenu extends React.Component {
             {getFieldDecorator("menus", {
               initialValue: this.state.checkedKeys,
               valuePropName: "checkedKeys",
-              rules: [{ type: "array", required: true, message: "请勾选菜单!" }]
+              rules: [{ type: "array" }]
             })(
               <Tree
-                checkable
-                showLine
+                checkable={true}
+                showLine={true}
                 checkStrictly={true}
-                onCheck={this.onCheck}
-                selectedKeys={this.state.selectedKeys}
+                onCheck={this.handleCheck}
               >
                 {this.getNodes(this.state.data)}
               </Tree>

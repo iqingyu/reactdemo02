@@ -6,15 +6,15 @@ import EditMenu from "../editMenu";
 const TreeNode = Tree.TreeNode;
 
 class MenuList extends React.Component {
+  
   constructor(props) {
     super(props);
 
     this.state = {
       selectedMenu: null,
       data: [],
-      defaultExpandedKeys: [],
       selectedKeys: [],
-
+      defaultExpandedKeys: ["default"],
       addParentId: -1,
       addParentName: "",
       addVisible: false,
@@ -27,10 +27,11 @@ class MenuList extends React.Component {
   onSelect = (selectedKeys, info) => {
     if (info && info.selectedNodes && info.selectedNodes.length > 0) {
       this.setState({
-        selectedMenu: JSON.parse(info.selectedNodes[0].props["data-data"])
+        selectedMenu: JSON.parse(info.selectedNodes[0].props["data-data"]),
+        selectedKeys: selectedKeys
       });
     } else {
-      this.setState({ selectedMenu: null });
+      this.setState({ selectedMenu: null, selectedKeys: [] });
     }
   };
 
@@ -48,15 +49,6 @@ class MenuList extends React.Component {
         {node.children && this.getNodes(node.children)}
       </TreeNode>
     ));
-  };
-
-  // 新建菜单
-  handleAdd = () => {
-    this.setState({
-      addParentId: -1,
-      addParentName: "",
-      addVisible: true
-    });
   };
 
   handleAddSub = () => {
@@ -81,6 +73,11 @@ class MenuList extends React.Component {
 
     if (!parent) {
       message.error("请先选中一个需要编辑的菜单");
+      return;
+    }
+
+    if (parent.id <= 0) {
+      message.error("根菜单不可以编辑");
       return;
     }
 
@@ -111,6 +108,11 @@ class MenuList extends React.Component {
 
     if (!menu) {
       message.error("请先选中一个需要删除的菜单");
+      return;
+    }
+
+    if (menu.id <= 0) {
+      message.error("根菜单不可以删除");
       return;
     }
 
@@ -173,9 +175,6 @@ class MenuList extends React.Component {
     return (
       <div>
         <div style={{ height: 60, padding: 15 }}>
-          <Button height="45" icon="plus-circle" onClick={this.handleAdd}>
-            新建菜单
-          </Button>
           <Button height="45" icon="plus-circle" onClick={this.handleAddSub}>
             新建子菜单
           </Button>
@@ -191,11 +190,18 @@ class MenuList extends React.Component {
           style={{ marginLeft: 15, marginTop: 10, backgroundColor: "white" }}
         >
           <Tree
-            showLine
-            defaultExpandedKeys={this.defaultExpandedKeys}
+            showLine={true}
             onSelect={this.onSelect}
+            selectedKeys={this.state.selectedKeys}
+            defaultExpandedKeys={this.state.defaultExpandedKeys}
           >
-            {this.getNodes(this.state.data)}
+            <TreeNode
+              title={"根菜单(不可修改,不可删除)"}
+              key={"default"}
+              data-data={JSON.stringify({ id: -1, name: "根菜单" })}
+            >
+              {this.getNodes(this.state.data)}
+            </TreeNode>
           </Tree>
         </div>
 

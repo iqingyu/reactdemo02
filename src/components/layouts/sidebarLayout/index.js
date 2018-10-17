@@ -60,9 +60,6 @@ export default class SidebarLayout extends Component {
           >
             <ContentView />
           </Content>
-          {/* <Footer>
-                        <FooterView />
-                    </Footer> */}
         </Layout>
       </Layout>
     );

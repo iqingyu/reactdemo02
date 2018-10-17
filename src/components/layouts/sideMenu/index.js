@@ -39,7 +39,18 @@ class SideMenuView extends Component {
   render() {
     return (
       <div>
-        <div style={{ height: "64px", background: "#20a0ff" }} />
+        <div
+          style={{
+            height: "64px",
+            background: "#20a0ff",
+            textAlign: "center",
+            lineHeight: "64px",
+            fontSize: "xx-large",
+            color: "white"
+          }}
+        >
+          {window.YWGlobal.appName}
+        </div>
         <Menu mode="vertical-right">{this.getMenu(this.props.menuList)}</Menu>
       </div>
     );
