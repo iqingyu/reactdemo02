@@ -4,7 +4,7 @@ import { loginAction } from "../../actions/userAction";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import "./index.css";
+import "./index.less";
 
 const FormItem = Form.Item;
 
@@ -19,6 +19,7 @@ class Login extends React.Component {
       if (err) {
         return;
       }
+
       let content = {
         username: values["username"],
         password: values["password"]
