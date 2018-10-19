@@ -93,10 +93,9 @@ class AddMenu extends React.Component {
           <Form.Item {...tailFormItemLayout}>
             <Button
               icon="plus-circle"
-              height="45"
               type="primary"
               htmlType="submit"
-              style={{ marginLeft: 15 }}
+              className='yw-button-normal'
             >
               新建菜单
             </Button>

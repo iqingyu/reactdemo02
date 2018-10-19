@@ -125,7 +125,7 @@ class UserList extends React.Component {
         return;
       }
 
-      if (data.ResultCode != 1) {
+      if (data.ResultCode !== 1) {
         message.error(data.ResultMsg);
         return;
       }
@@ -159,12 +159,12 @@ class UserList extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ height: 60, padding: 15, textAlign: "left" }}>
+        <div className="yw-toolbar-normal">
           <Button
             onClick={this.handleAdd}
             type="primary"
             icon="plus-circle"
-            height="45"
+            className="yw-button-normal"
           >
             新建用户
           </Button>

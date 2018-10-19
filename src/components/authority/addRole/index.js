@@ -47,15 +47,14 @@ class AddRole extends React.Component {
         <Form.Item label="角色名">
           {getFieldDecorator("roleName", {
             rules: [{ required: true, message: "请输入角色名!" }]
-          })(<Input height="45" placeholder="角色名" />)}
+          })(<Input placeholder="角色名" />)}
         </Form.Item>
         <Form.Item>
           <Button
             icon="plus-circle"
-            height="45"
             type="primary"
             htmlType="submit"
-            style={{ marginLeft: 15 }}
+            className="yw-button-normal"
           >
             新建角色
           </Button>

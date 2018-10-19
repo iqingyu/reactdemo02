@@ -64,37 +64,34 @@ class EditMenu extends React.Component {
             {getFieldDecorator("name", {
               initialValue: edit ? edit.name : "",
               rules: [{ required: true, message: "请输入菜单名!" }]
-            })(<Input height="45" placeholder="菜单名" />)}
+            })(<Input placeholder="菜单名" />)}
           </Form.Item>
 
           <Form.Item {...formItemLayout} label="菜单路由">
             {getFieldDecorator("path", {
               initialValue: edit ? edit.path : "",
               rules: [{ required: true, message: "请输入菜单路由!" }]
-            })(<Input height="45" placeholder="菜单路由" />)}
+            })(<Input placeholder="菜单路由" />)}
           </Form.Item>
           <Form.Item {...formItemLayout} label="菜单图标">
             {getFieldDecorator("icon", {
               initialValue: edit ? edit.icon : "",
               rules: [{ required: true, message: "请输入菜单图标!" }]
-            })(<Input height="45" placeholder="菜单图标" />)}
+            })(<Input placeholder="菜单图标" />)}
           </Form.Item>
           <Form.Item {...formItemLayout} label="菜单序号">
             {getFieldDecorator("order", {
               initialValue: edit ? edit.order : 1,
               rules: [{ required: true, message: "请输入菜单序号!" }]
-            })(
-              <Input height="45" placeholder="菜单序号(小号在前，大号在后)" />
-            )}
+            })(<Input placeholder="菜单序号(小号在前，大号在后)" />)}
           </Form.Item>
 
           <Form.Item {...tailFormItemLayout}>
             <Button
               icon="edit"
-              height="45"
               type="primary"
               htmlType="submit"
-              style={{ marginLeft: 15 }}
+              className="yw-button-normal"
             >
               保存菜单
             </Button>

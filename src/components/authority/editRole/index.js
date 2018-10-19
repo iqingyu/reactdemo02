@@ -66,16 +66,15 @@ class EditRole extends React.Component {
           <Form.Item {...formItemLayout} label="新角色名">
             {getFieldDecorator("roleName", {
               rules: [{ required: true, message: "请输入新角色名!" }]
-            })(<Input height="45" placeholder="新角色名" />)}
+            })(<Input placeholder="新角色名" />)}
           </Form.Item>
 
           <Form.Item {...tailFormItemLayout}>
             <Button
               icon="edit"
-              height="45"
               type="primary"
               htmlType="submit"
-              style={{ marginLeft: 15 }}
+              className="yw-button-normal"
             >
               保存角色
             </Button>

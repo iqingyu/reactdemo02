@@ -6,7 +6,6 @@ import EditMenu from "../editMenu";
 const TreeNode = Tree.TreeNode;
 
 class MenuList extends React.Component {
-  
   constructor(props) {
     super(props);
 
@@ -174,21 +173,34 @@ class MenuList extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ height: 60, padding: 15 }}>
-          <Button height="45" icon="plus-circle" onClick={this.handleAddSub}>
+        <div className="yw-toolbar-normal">
+          <Button
+            icon="plus-circle"
+            type="primary"
+            className="yw-button-normal"
+            onClick={this.handleAddSub}
+          >
             新建子菜单
           </Button>
-          <Button height="45" icon="edit" onClick={this.handleEdit}>
+          <Button
+            icon="edit"
+            type="primary"
+            className="yw-button-normal"
+            onClick={this.handleEdit}
+          >
             编辑菜单
           </Button>
-          <Button height="45" icon="delete" onClick={this.handleDelete}>
+          <Button
+            icon="delete"
+            type="primary"
+            className="yw-button-normal"
+            onClick={this.handleDelete}
+          >
             删除菜单
           </Button>
         </div>
 
-        <div
-          style={{ marginLeft: 15, marginTop: 10, backgroundColor: "white" }}
-        >
+        <div className="whiteBackground">
           <Tree
             showLine={true}
             onSelect={this.onSelect}

@@ -162,10 +162,9 @@ class AllocationRole extends React.Component {
           <Form.Item {...tailFormItemLayout}>
             <Button
               icon="save"
-              height="45"
               type="primary"
               htmlType="submit"
-              style={{ marginLeft: 15 }}
+              className='yw-button-normal'
             >
               保存
             </Button>

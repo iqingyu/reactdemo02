@@ -59,7 +59,7 @@ class AddUser extends React.Component {
           <Form.Item {...formItemLayout} label="用户名">
             {getFieldDecorator("username", {
               rules: [{ required: true, message: "请输入用户名!" }]
-            })(<Input height="45" placeholder="用户名" />)}
+            })(<Input placeholder="用户名" />)}
           </Form.Item>
 
           <Form.Item {...formItemLayout} label="默认密码">
@@ -69,13 +69,13 @@ class AddUser extends React.Component {
           <Form.Item {...formItemLayout} label="姓名">
             {getFieldDecorator("name", {
               rules: [{ required: true, message: "请输入姓名!" }]
-            })(<Input height="45" placeholder="姓名" />)}
+            })(<Input placeholder="姓名" />)}
           </Form.Item>
 
           <Form.Item {...formItemLayout} label="员工编号">
             {getFieldDecorator("userCode", {
               rules: [{ required: true, message: "请输入员工编号!" }]
-            })(<Input height="45" placeholder="员工编号" />)}
+            })(<Input placeholder="员工编号" />)}
           </Form.Item>
 
           <Form.Item {...formItemLayout} label="性别">
@@ -94,39 +94,38 @@ class AddUser extends React.Component {
           <Form.Item {...formItemLayout} label="电话">
             {getFieldDecorator("tel", {
               rules: [{ required: true, message: "请输入电话!" }]
-            })(<Input height="45" placeholder="电话" />)}
+            })(<Input placeholder="电话" />)}
           </Form.Item>
 
           <Form.Item {...formItemLayout} label="固话">
             {getFieldDecorator("phone", {
               rules: [{ required: true, message: "请输入固话!" }]
-            })(<Input height="45" placeholder="固话" />)}
+            })(<Input placeholder="固话" />)}
           </Form.Item>
 
           <Form.Item {...formItemLayout} label="邮箱">
             {getFieldDecorator("email", {
               rules: [{ required: true, message: "请输入邮箱!" }]
-            })(<Input height="45" placeholder="邮箱" />)}
+            })(<Input placeholder="邮箱" />)}
           </Form.Item>
 
           <Form.Item {...formItemLayout} label="部门">
             {getFieldDecorator("department", {
               rules: [{ required: true, message: "请输入部门!" }]
-            })(<Input height="45" placeholder="部门" />)}
+            })(<Input placeholder="部门" />)}
           </Form.Item>
           <Form.Item {...formItemLayout} label="岗位">
             {getFieldDecorator("post", {
               rules: [{ required: true, message: "请输入岗位!" }]
-            })(<Input height="45" placeholder="岗位" />)}
+            })(<Input placeholder="岗位" />)}
           </Form.Item>
 
           <Form.Item {...tailFormItemLayout}>
             <Button
               icon="plus-circle"
-              height="45"
               type="primary"
               htmlType="submit"
-              style={{ marginLeft: 15 }}
+              className='yw-button-normal'
             >
               新建用户
             </Button>

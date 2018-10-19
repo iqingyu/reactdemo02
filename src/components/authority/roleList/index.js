@@ -159,7 +159,7 @@ class RoleList extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ height: 60, padding: 15, textAlign: "left" }}>
+        <div className='yw-toolbar-normal'>
           <AddRole addRoleAction={this.addRoleAction} />
         </div>
 
