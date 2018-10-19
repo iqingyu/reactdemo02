@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Avatar, Dropdown, Icon, Menu } from "antd";
 import { connect } from "react-redux";
-
 import { logoutAction } from "../../../actions/userAction";
-
 import { withRouter } from "react-router-dom";
+
+import './index.less'
 
 class HeaderView extends Component {
   static propTypes = {
@@ -26,12 +26,12 @@ class HeaderView extends Component {
   menu = (
     <Menu>
       <Menu.Item>
-        <a href="#" onClick={this.handleUserIno}>
+        <a onClick={this.handleUserIno}>
           个人中心
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href="#" onClick={this.handleLogout}>
+        <a onClick={this.handleLogout}>
           退出登录
         </a>
       </Menu.Item>
@@ -43,15 +43,11 @@ class HeaderView extends Component {
       <Row>
         <Col span={20} />
         <Col>
-          <Avatar
-            style={{ backgroundColor: "#87d068", marginRight: 10 }}
-            icon="user"
-          />
+          <Avatar icon="user" />
           <Dropdown overlay={this.menu}>
             <span
-              className="ant-dropdown-link"
+              className="ant-dropdown-link people-dropdown"
               href="#"
-              style={{ color: "#fff", cursor: "pointer" }}
             >
               {this.props.username} <Icon type="down" />
             </span>

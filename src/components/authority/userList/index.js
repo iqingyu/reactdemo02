@@ -55,7 +55,7 @@ class UserList extends React.Component {
         return;
       }
 
-      if (data.ResultCode != 1) {
+      if (data.ResultCode !== 1) {
         message.error(data.ResultMsg);
         return;
       }

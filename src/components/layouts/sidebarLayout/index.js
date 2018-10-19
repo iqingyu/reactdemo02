@@ -1,12 +1,15 @@
 import { Layout, Icon, Row, Col } from "antd";
 import React, { Component } from "react";
-import "antd/dist/antd.css";
 
 import HeaderView from "../header";
 import SideMenuView from "../sideMenu";
 import ContentView from "../content";
 
+import "antd/dist/antd.css";
+import './index.less';
+
 const { Header, Content, Sider } = Layout;
+
 
 export default class SidebarLayout extends Component {
   state = {
@@ -22,9 +25,9 @@ export default class SidebarLayout extends Component {
 
   render() {
     return (
-      <Layout style={{ height: "100%" }}>
+      <Layout className="height100percent">
         <Sider
-          style={{ background: "#FFFFFF" }}
+          className="whiteBackground"
           trigger={null}
           collapsible
           collapsed={this.state.collapsed}
@@ -32,16 +35,10 @@ export default class SidebarLayout extends Component {
           <SideMenuView />
         </Sider>
         <Layout>
-          <Header style={{ background: "#20a0ff", padding: 0 }}>
+          <Header className="app-header">
             <Row>
               <Col span={4}>
-                <span
-                  style={{
-                    color: "#FFFFFF",
-                    paddingLeft: "16px",
-                    fontSize: "1.4em"
-                  }}
-                >
+                <span className="app-menu-button">
                   <Icon
                     className="trigger"
                     type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
@@ -55,9 +52,7 @@ export default class SidebarLayout extends Component {
               </Col>
             </Row>
           </Header>
-          <Content
-            style={{ height: "86vh", paddingRight: "2%", overflow: "auto" }}
-          >
+          <Content className="app-content">
             <ContentView />
           </Content>
         </Layout>

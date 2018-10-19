@@ -4,6 +4,8 @@ import { Menu, Icon } from "antd";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
+import './index.less'
+
 class SideMenuView extends Component {
   static propTypes = {
     menuList: PropTypes.array
@@ -33,18 +35,7 @@ class SideMenuView extends Component {
   render() {
     return (
       <div>
-        <div
-          style={{
-            height: "64px",
-            background: "#20a0ff",
-            textAlign: "center",
-            lineHeight: "64px",
-            fontSize: "xx-large",
-            color: "white"
-          }}
-        >
-          {window.YWGlobal.appName}
-        </div>
+        <div className="app-appname">{window.YWGlobal.appName}</div>
         <Menu mode="vertical-right">{this.getMenu(this.props.menuList)}</Menu>
       </div>
     );
