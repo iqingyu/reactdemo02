@@ -41,7 +41,7 @@ class AddUser extends React.Component {
     });
   };
 
-  cancel = () => {
+  HandleCancel = () => {
     this.props.form.resetFields(); // 清空表单
     this.props.addUserAction(false);
   };
@@ -53,7 +53,7 @@ class AddUser extends React.Component {
         visible={this.props.addVisible}
         title="新建用户"
         footer={null}
-        onCancel={this.cancel}
+        onCancel={this.HandleCancel}
       >
         <Form horizontal="true" onSubmit={this.handleSubmit}>
           <Form.Item {...formItemLayout} label="用户名">

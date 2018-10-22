@@ -44,7 +44,7 @@ class EditRole extends React.Component {
     });
   };
 
-  cancel = () => {
+  HandleCancel = () => {
     this.props.form.resetFields(); // 清空表单
     this.props.editRoleAction(false);
   };
@@ -56,7 +56,7 @@ class EditRole extends React.Component {
         visible={this.props.editVisible}
         title="编辑角色名"
         footer={null}
-        onCancel={this.cancel}
+        onCancel={this.HandleCancel}
       >
         <Form horizontal="true" onSubmit={this.handleSubmit}>
           <Form.Item {...formItemLayout} label="原角色名">

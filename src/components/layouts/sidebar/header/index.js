@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Avatar, Dropdown, Icon, Menu } from "antd";
 import { connect } from "react-redux";
-import { logoutAction } from "../../../actions/userAction";
+import { logoutAction } from "../../../../actions/userAction";
 import { withRouter } from "react-router-dom";
 
 import './index.less'

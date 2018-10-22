@@ -57,7 +57,7 @@ class AllocationMenu extends React.Component {
     });
   };
 
-  cancel = () => {
+  HandleCancel = () => {
     this.setState({ checkedKeys: [] });
     this.roleId = null;
     this.props.form.resetFields(); // 清空表单
@@ -159,7 +159,7 @@ class AllocationMenu extends React.Component {
         visible={this.props.alVisible}
         title="分配菜单"
         footer={null}
-        onCancel={this.cancel}
+        onCancel={this.HandleCancel}
       >
         <Form horizontal="true" onSubmit={this.handleSubmit}>
           <Form.Item {...formItemLayout} label="角色名">

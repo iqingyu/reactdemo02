@@ -36,7 +36,7 @@ class SideMenuView extends Component {
     return (
       <div>
         <div className="app-appname">{window.YWGlobal.appName}</div>
-        <Menu mode="vertical-right">{this.getMenu(this.props.menuList)}</Menu>
+        <Menu mode="vertical-right" inlineCollapsed={this.props.collapsed} >{this.getMenu(this.props.menuList)}</Menu>
       </div>
     );
   }

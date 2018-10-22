@@ -58,7 +58,7 @@ class AllocationRole extends React.Component {
     });
   };
 
-  cancel = () => {
+  HandleCancel = () => {
     this.userId = null;
     this.props.form.resetFields(); // 清空表单
     this.props.allocationRoleAction(false);
@@ -144,7 +144,7 @@ class AllocationRole extends React.Component {
         visible={this.props.allocationVisible}
         title="分配角色"
         footer={null}
-        onCancel={this.cancel}
+        onCancel={this.HandleCancel}
       >
         <Form horizontal="true" onSubmit={this.handleSubmit}>
           <Form.Item {...formItemLayout} label="用户名">

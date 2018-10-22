@@ -44,7 +44,7 @@ class EditMenu extends React.Component {
     });
   };
 
-  cancel = () => {
+  HandleCancel = () => {
     this.props.form.resetFields(); // 清空表单
     this.props.editMenuAction(false);
   };
@@ -57,7 +57,7 @@ class EditMenu extends React.Component {
         visible={this.props.editVisible}
         title="编辑菜单"
         footer={null}
-        onCancel={this.cancel}
+        onCancel={this.HandleCancel}
       >
         <Form horizontal="true" onSubmit={this.handleSubmit}>
           <Form.Item {...formItemLayout} label="菜单名">

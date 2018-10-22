@@ -1,20 +1,18 @@
 import { Layout, Icon, Row, Col } from "antd";
 import React, { Component } from "react";
 
-import HeaderView from "../header";
-import SideMenuView from "../sideMenu";
-import ContentView from "../content";
+import HeaderView from "./header";
+import SideMenuView from "./sideMenu";
+import ContentView from "./content";
 
 import "antd/dist/antd.css";
-import './index.less';
+import "./index.less";
 
 const { Header, Content, Sider } = Layout;
 
-
 export default class SidebarLayout extends Component {
   state = {
-    collapsed: false,
-    mode: "inline"
+    collapsed: false
   };
 
   toggle = () => {
@@ -32,7 +30,7 @@ export default class SidebarLayout extends Component {
           collapsible
           collapsed={this.state.collapsed}
         >
-          <SideMenuView />
+          <SideMenuView {...this.state} />
         </Sider>
         <Layout>
           <Header className="app-header">
