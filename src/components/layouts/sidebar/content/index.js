@@ -21,6 +21,12 @@ import InputsDemo from "../../../demo/Inputs";
 import BadgesDemo from "../../../demo/Badges";
 import CalendarsDemo from "../../../demo/Calendars";
 import CardsDemo from "../../../demo/Cards";
+import NotificationsDemo from "../../../demo/Notifications";
+import ProgressesDemo from '../../../demo/Progresses';
+import PopconfirmsDemo from '../../../demo/Popconfirms';
+import ListsDemo from '../../../demo/Lists';
+import TabsDemo from '../../../demo/Tabs';
+import TransfersDemo from '../../../demo/Transfers';
 
 
 export default class ContentView extends Component {
@@ -45,6 +51,15 @@ export default class ContentView extends Component {
           <Route path="/badgesDemo" exact component={BadgesDemo} />
           <Route path="/calendarsDemo" exact component={CalendarsDemo} />
           <Route path="/cardsDemo" exact component={CardsDemo} />
+          <Route path="/notificationsDemo" exact component={NotificationsDemo} />
+          <Route path="/progressesDemo" exact component={ProgressesDemo} />
+          <Route path="/popconfirmsDemo" exact component={PopconfirmsDemo} />
+          <Route path="/listsDemo" exact component={ListsDemo} />
+          <Route path="/tabsDemo" exact component={TabsDemo} />
+          <Route path="/transfersDemo" exact component={TransfersDemo} />
+          
+
+          
         </Switch>
       </div>
     );
