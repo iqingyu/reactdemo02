@@ -4,7 +4,7 @@ import { Menu, Icon } from "antd";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import './index.less'
+import "./index.less";
 
 class SideMenuView extends Component {
   static propTypes = {
@@ -12,31 +12,38 @@ class SideMenuView extends Component {
   };
 
   getMenu = data => {
-    return data.map(menu => (
-      <Menu.SubMenu
-        key={menu.name}
-        title={
-          <span>
-            <Icon type={menu.icon} />
-            <span>{menu.name}</span>
-          </span>
-        }
-      >
-        {menu &&
-          menu.children.map(child => (
-            <Menu.Item key={child.path}>
-              <Link to={child.path}> {child.name} </Link>
-            </Menu.Item>
-          ))}
-      </Menu.SubMenu>
-    ));
+    return data.map(menu => {
+      if (menu.children && menu.children.length > 0) {
+        return (
+          <Menu.SubMenu
+            key={menu.name}
+            title={
+              <span>
+                <Icon type={menu.icon} />
+                <span>{menu.name}</span>
+              </span>
+            }
+          >
+            {this.getMenu(menu.children)}
+          </Menu.SubMenu>
+        );
+      } else {
+        return (
+          <Menu.Item key={menu.path}>
+            <Link to={menu.path}> {menu.name} </Link>
+          </Menu.Item>
+        );
+      }
+    });
   };
 
   render() {
     return (
       <div>
         <div className="app-appname">{window.YWGlobal.appName}</div>
-        <Menu mode="vertical-right" inlineCollapsed={this.props.collapsed} >{this.getMenu(this.props.menuList)}</Menu>
+        <Menu mode="vertical-right" inlineCollapsed={this.props.collapsed}>
+          {this.getMenu(this.props.menuList)}
+        </Menu>
       </div>
     );
   }

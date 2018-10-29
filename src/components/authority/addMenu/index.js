@@ -79,7 +79,7 @@ class AddMenu extends React.Component {
           </Form.Item>
           <Form.Item {...formItemLayout} label="菜单图标">
             {getFieldDecorator("icon", {
-              rules: [{ required: true, message: "请输入菜单图标!" }]
+              rules: [{ message: "请输入菜单图标!" }]
             })(<Input placeholder="菜单图标" />)}
           </Form.Item>
           <Form.Item {...formItemLayout} label="菜单序号">

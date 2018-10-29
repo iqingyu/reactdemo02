@@ -9,6 +9,11 @@ import RouterPage from "../appRouters";
 import '../../styles/index.less';
 import './index.less';
 
+// 全局中文配置
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
+
 render(
   <Provider store={globalStore} style={{ height: "100%" }}>
       <RouterPage />
